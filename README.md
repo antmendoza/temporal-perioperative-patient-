@@ -9,7 +9,11 @@ the use of the following temporal's capabilities:
 
 
 ## Communicate workflows executions through signals
-- [SendSignalBetweenWorkflowsWorkflowTest](./src/test/java/examples/SendSignalBetweenWorkflowsWorkflowTest.java)
+- [SendSignalBetweenWorkflowsWorkflowTest](./src/test/java/examples/signal/SendSignalBetweenWorkflowsWorkflowTest.java)
+
+
+## Dynamic workflow
+- [DynamicWorkflowTest](./src/test/java/examples/dynamicworflow/DynamicWorkflowTest.java)
 
 ## Execute test
 Either open the project in IntelliJ and run the tests from inside or in the project's root directory run:
