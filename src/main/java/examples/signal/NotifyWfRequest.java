@@ -1,4 +1,4 @@
-package examples;
+package examples.signal;
 
 import java.util.Objects;
 

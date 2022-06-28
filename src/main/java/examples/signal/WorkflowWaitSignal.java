@@ -1,4 +1,4 @@
-package examples;
+package examples.signal;
 
 import io.temporal.workflow.QueryMethod;
 import io.temporal.workflow.SignalMethod;
