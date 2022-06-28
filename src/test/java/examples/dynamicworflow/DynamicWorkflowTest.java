@@ -1,7 +1,12 @@
 package examples.dynamicworflow;
 
+import examples.dynamicworflow.DynamicWorkflowImpl;
+import examples.dynamicworflow.DynamicWorkflowResponse;
+import examples.dynamicworflow.MyDataConverter;
+import io.temporal.client.WorkflowClientOptions;
 import io.temporal.client.WorkflowOptions;
 import io.temporal.client.WorkflowStub;
+import io.temporal.common.converter.DataConverter;
 import io.temporal.testing.TestWorkflowRule;
 import org.junit.After;
 import org.junit.Assert;
@@ -14,6 +19,9 @@ public class DynamicWorkflowTest {
     @Rule
     public TestWorkflowRule testWorkflowRule = TestWorkflowRule.newBuilder()
             .setWorkflowTypes(DynamicWorkflowImpl.class)
+            .setWorkflowClientOptions(WorkflowClientOptions.newBuilder()
+                    //With dataConverter
+                    .setDataConverter(new MyDataConverter(DataConverter.getDefaultInstance())).build())
             .setDoNotStart(true)
             .build();
 
@@ -24,7 +32,7 @@ public class DynamicWorkflowTest {
     }
 
     @Test
-    public void dynamicWf() {
+    public void dataConverter() {
 
         testWorkflowRule.getTestEnvironment()
                 .start();
