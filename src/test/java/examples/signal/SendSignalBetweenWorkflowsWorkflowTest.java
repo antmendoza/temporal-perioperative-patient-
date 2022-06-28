@@ -38,7 +38,7 @@ public class SendSignalBetweenWorkflowsWorkflowTest {
 
 
         final WorkflowStub workflowWaitSignal = testWorkflowRule.getWorkflowClient()
-                //Get untuped workflow by workflowType
+                //Get untyped workflow by workflowType
                 .newUntypedWorkflowStub(WorkflowWaitSignal.WORKFLOW_NAME, WorkflowOptions.newBuilder()
                         .setWorkflowId(clientId)
                         .setTaskQueue(testWorkflowRule.getTaskQueue())
