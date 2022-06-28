@@ -8,6 +8,8 @@ import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
 
+import java.util.UUID;
+
 public class SendSignalBetweenWorkflowsWorkflowTest {
 
     @Rule
@@ -23,16 +25,20 @@ public class SendSignalBetweenWorkflowsWorkflowTest {
     }
 
     @Test
-    public void testSendSignal() throws InterruptedException {
+    public void testSendSignal() {
 
 
         testWorkflowRule.getTestEnvironment()
                 .start();
 
 
+        final String clientId = UUID.randomUUID()
+                .toString();
+
+
         final WorkflowWaitSignal workflowWaitSignal = testWorkflowRule.getWorkflowClient()
                 .newWorkflowStub(WorkflowWaitSignal.class, WorkflowOptions.newBuilder()
-                        .setWorkflowId("patientId")
+                        .setWorkflowId(clientId)
                         .setTaskQueue(testWorkflowRule.getTaskQueue())
                         .build());
 
@@ -45,10 +51,11 @@ public class SendSignalBetweenWorkflowsWorkflowTest {
                         .setTaskQueue(testWorkflowRule.getTaskQueue())
                         .build());
 
-        workflowSendSignal.start();
+        workflowSendSignal.start(new WorkflowSendSignalRequest(clientId));
 
 
         Assert.assertNotNull(workflowWaitSignal.getData());
+        Assert.assertEquals(new NotifyWfRequest(clientId), workflowWaitSignal.getData());
 
 
     }

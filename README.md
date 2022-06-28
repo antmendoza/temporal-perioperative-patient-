@@ -6,6 +6,11 @@ the use of the following temporal's capabilities:
 - queryMethod
 - child workflows
 
+
+
+## Communicate workflows executions through signals
+- [SendSignalBetweenWorkflowsWorkflowTest](./src/test/java/examples/SendSignalBetweenWorkflowsWorkflowTest.java)
+
 ## Execute test
 Either open the project in IntelliJ and run the tests from inside or in the project's root directory run:
 

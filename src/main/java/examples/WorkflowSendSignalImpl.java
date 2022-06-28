@@ -5,10 +5,11 @@ import io.temporal.workflow.Workflow;
 public class WorkflowSendSignalImpl implements WorkflowSendSignal {
 
     @Override
-    public void start() {
+    public void start(WorkflowSendSignalRequest workflowSendSignalRequest) {
 
-        WorkflowWaitSignal waitSignal = Workflow.newExternalWorkflowStub(WorkflowWaitSignal.class, "patientId");
-        final NotifyWfRequest data = new NotifyWfRequest("data");
+        final String clientId = workflowSendSignalRequest.getClientId();
+        WorkflowWaitSignal waitSignal = Workflow.newExternalWorkflowStub(WorkflowWaitSignal.class, clientId);
+        final NotifyWfRequest data = new NotifyWfRequest(clientId);
         waitSignal.notify(data);
 
     }

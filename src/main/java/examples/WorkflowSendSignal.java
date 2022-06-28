@@ -8,7 +8,7 @@ public interface WorkflowSendSignal {
 
 
     @WorkflowMethod
-    void start();
+    void start(WorkflowSendSignalRequest workflowSendSignalRequest);
 
 
 }
