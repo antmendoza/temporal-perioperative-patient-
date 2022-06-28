@@ -8,7 +8,9 @@ import io.temporal.workflow.WorkflowMethod;
 @WorkflowInterface
 public interface WorkflowWaitSignal {
 
-    @WorkflowMethod
+    String WORKFLOW_NAME = "ABC";
+
+    @WorkflowMethod(name=WORKFLOW_NAME)
     void start();
 
     @SignalMethod

@@ -2,6 +2,7 @@ package examples.signal;
 
 import io.temporal.client.WorkflowClient;
 import io.temporal.client.WorkflowOptions;
+import io.temporal.client.WorkflowStub;
 import io.temporal.testing.TestWorkflowRule;
 import org.junit.After;
 import org.junit.Assert;
@@ -36,14 +37,16 @@ public class SendSignalBetweenWorkflowsWorkflowTest {
                 .toString();
 
 
-        final WorkflowWaitSignal workflowWaitSignal = testWorkflowRule.getWorkflowClient()
-                .newWorkflowStub(WorkflowWaitSignal.class, WorkflowOptions.newBuilder()
+        final WorkflowStub workflowWaitSignal = testWorkflowRule.getWorkflowClient()
+                //Get untuped workflow by name/alias
+                .newUntypedWorkflowStub(WorkflowWaitSignal.WORKFLOW_NAME, WorkflowOptions.newBuilder()
                         .setWorkflowId(clientId)
                         .setTaskQueue(testWorkflowRule.getTaskQueue())
                         .build());
 
-        WorkflowClient.start(workflowWaitSignal::start);
-        Assert.assertNull(workflowWaitSignal.getData());
+
+        workflowWaitSignal.start();
+        Assert.assertNull(getDataFromWorkflowWaitSignal(workflowWaitSignal));
 
 
         final WorkflowSendSignal workflowSendSignal = testWorkflowRule.getWorkflowClient()
@@ -54,10 +57,14 @@ public class SendSignalBetweenWorkflowsWorkflowTest {
         workflowSendSignal.start(new WorkflowSendSignalRequest(clientId));
 
 
-        Assert.assertNotNull(workflowWaitSignal.getData());
-        Assert.assertEquals(new NotifyWfRequest(clientId), workflowWaitSignal.getData());
+        Assert.assertNotNull(getDataFromWorkflowWaitSignal(workflowWaitSignal));
+        Assert.assertEquals(new NotifyWfRequest(clientId), getDataFromWorkflowWaitSignal(workflowWaitSignal));
 
 
+    }
+
+    private NotifyWfRequest getDataFromWorkflowWaitSignal(final WorkflowStub workflowWaitSignal) {
+        return workflowWaitSignal.query("getData", NotifyWfRequest.class);
     }
 
 
