@@ -1,8 +1,9 @@
 package perioperative;
 
+import io.temporal.workflow.ExternalWorkflowStub;
 import io.temporal.workflow.Workflow;
-import perioperative.phases.SurgeonConsultationPhase;
 import perioperative.phases.CompleteSurgeonConsultationRequest;
+import perioperative.phases.SurgeonConsultationPhase;
 import perioperative.phases.SurgeonConsultationPhaseResponse;
 
 public class PerioperativePatientImpl implements PerioperativePatient {
@@ -16,14 +17,13 @@ public class PerioperativePatientImpl implements PerioperativePatient {
 
         this.patient = patient;
 
-        surgeonConsultationPhase =
-                Workflow.newChildWorkflowStub(SurgeonConsultationPhase.class);
+        surgeonConsultationPhase = Workflow.newChildWorkflowStub(SurgeonConsultationPhase.class);
 
         final PerioperativeResponse perioperativeResponse = new PerioperativeResponse();
 
         // This is a blocking call that returns only after child has completed.
-        final SurgeonConsultationPhaseResponse surgeonConsultationPhaseResponse =
-                surgeonConsultationPhase.start(patient);
+        final SurgeonConsultationPhaseResponse surgeonConsultationPhaseResponse = surgeonConsultationPhase.start(
+                patient);
         perioperativeResponse.setSurgeonConsultationPhaseResponse(surgeonConsultationPhaseResponse);
 
 
