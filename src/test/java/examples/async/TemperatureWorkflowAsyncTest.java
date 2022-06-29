@@ -9,7 +9,7 @@ import org.junit.Test;
 
 import java.util.List;
 
-public class AsyncTest {
+public class TemperatureWorkflowAsyncTest {
 
 
     @Rule

@@ -15,6 +15,10 @@ the use of the following temporal's capabilities:
 ## Dynamic workflow
 - [DynamicWorkflowTest](./src/test/java/examples/dynamicworflow/DynamicWorkflowTest.java)
 
+## Use of Async.function
+- [TemperatureWorkflowAsyncTest](./src/test/java/examples/async/TemperatureWorkflowAsyncTest.java)
+
+
 ## Execute test
 Either open the project in IntelliJ and run the tests from inside or in the project's root directory run:
 
